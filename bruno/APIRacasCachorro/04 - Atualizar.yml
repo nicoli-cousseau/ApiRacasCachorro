@@ -1,0 +1,27 @@
+info:
+  name: "04 - Atualizar "
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: "{{baseUrl}}/api/racas/11"
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "Dálmata",
+        "grupo": "Não Esportivo",
+        "porte": "Médio",
+        "temperamento": "Ativo, leal, muito enérgico",
+        "paisOrigem": "Croácia",
+        "expectativaVidaAnos": 14
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
