@@ -42,4 +42,4 @@ Os dados ficam apenas em memória e são perdidos ao reiniciar a aplicação.
 A Collection do Bruno está na pasta /bruno deste repositório.
 
 ## Vídeo de demonstração
-[link aqui]
+https://drive.google.com/file/d/1kbbmN3k0HlMMSFe6tnRm3SoajwzRd8km/view?usp=sharing 
