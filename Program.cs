@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<ApiDbContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 var app = builder.Build();
 
 // "Banco de dados" em memória: uma lista de raças, com 10 registros iniciais
@@ -84,3 +90,23 @@ record Raca(int Id, string Nome, string Grupo, string Porte, string Temperamento
 
 // DTO de entrada: o que o cliente envia (sem Id)
 record RacaDto(string Nome, string Grupo, string Porte, string Temperamento, string PaisOrigem, int ExpectativaVidaAnos);
+
+class RacaEntity
+{
+    public int Id { get; set; }
+    public string Nome { get; set; } = string.Empty;
+    public string Grupo { get; set; } = string.Empty;
+    public string Porte { get; set; } = string.Empty;
+    public string Temperamento { get; set; } = string.Empty;
+    public string PaisOrigem { get; set; } = string.Empty;
+    public int ExpectativaVidaAnos { get; set; }
+}
+
+class ApiDbContext : DbContext
+{
+    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
+    {
+    }
+
+    public DbSet<RacaEntity> Racas => Set<RacaEntity>();
+}
