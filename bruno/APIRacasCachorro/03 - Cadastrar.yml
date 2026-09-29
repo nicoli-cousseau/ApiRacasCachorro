@@ -5,16 +5,16 @@ info:
 
 http:
   method: POST
-  url: "{{baseUrl}}/api/racas"
+  url: http://localhost:5164/api/racas
   body:
     type: json
     data: |-
       {
-        "nome": "Dálmata",
-        "grupo": "Não Esportivo",
-        "porte": "Médio",
-        "temperamento": "Ativo, alerta, brincalhão",
-        "paisOrigem": "Croácia",
+        "nome": "Vira-lata Caramelo", 
+        "grupo": "Companhia", 
+        "porte": "Médio", 
+        "temperamento": "Dócil, esperto, leal", 
+        "paisOrigem": "Brasil", 
         "expectativaVidaAnos": 13
       }
   auth: inherit
