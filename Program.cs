@@ -22,13 +22,12 @@ var racas = new List<Raca>
     new Raca(10, "Shih Tzu", "Companhia", "Pequeno", "Afetuoso, extrovertido, tranquilo", "China", 13)
 };
 
-int proximoId = 11; // controla o próximo Id disponível (ajustado por causa dos 10 registros iniciais)
-
 // Rota raiz - confirma que a API está no ar
 app.MapGet("/", () => "API de Raças de Cachorros está no ar! 🐶");
 
-// GET - lista todas as raças
-app.MapGet("/api/racas", () => Results.Ok(racas));
+// GET - lista todas as raças gravadas no banco
+app.MapGet("/api/racas", async (ApiDbContext db) =>
+    await db.Racas.ToListAsync());
 
 // GET - busca uma raça pelo id
 app.MapGet("/api/racas/{id}", (int id) =>
@@ -37,21 +36,12 @@ app.MapGet("/api/racas/{id}", (int id) =>
     return raca is not null ? Results.Ok(raca) : Results.NotFound();
 });
 
-// POST - cadastra uma nova raça
-app.MapPost("/api/racas", (RacaDto novaRacaDto) =>
+// POST - cadastra uma nova raça direto no banco
+app.MapPost("/api/racas", async (RacaEntity raca, ApiDbContext db) =>
 {
-    var novaRaca = new Raca(
-        proximoId++,
-        novaRacaDto.Nome,
-        novaRacaDto.Grupo,
-        novaRacaDto.Porte,
-        novaRacaDto.Temperamento,
-        novaRacaDto.PaisOrigem,
-        novaRacaDto.ExpectativaVidaAnos
-    );
-
-    racas.Add(novaRaca);
-    return Results.Created($"/api/racas/{novaRaca.Id}", novaRaca);
+    db.Racas.Add(raca);
+    await db.SaveChangesAsync();
+    return Results.Created($"/api/racas/{raca.Id}", raca);
 });
 
 // PUT - atualiza uma raça existente
