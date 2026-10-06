@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demonstração - Catálogo de Raças de Cachorro</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="cabecalho">
+    <div class="container">
+      <div class="tag-demo" aria-label="Aviso de demonstração">
+        <span class="icone-alerta" aria-hidden="true">&#9888;</span>
+        <strong>Modo de Demonstração:</strong> Interface operando com dados fictícios locais (sem conexão com o backend).
+      </div>
+      <h1 class="titulo-principal">&#128054; Catálogo de Raças de Cachorro</h1>
+      <p class="subtitulo">Visualização e simulação de cadastro de raças de cães (AP1 - BackEnd).</p>
+    </div>
+  </header>
+
+  <main class="container layout-principal">
+    <!-- Formulário de Cadastro (Demonstração) -->
+    <section class="painel-formulario" aria-labelledby="titulo-formulario">
+      <h2 id="titulo-formulario" class="titulo-secao">Cadastrar Nova Raça</h2>
+      <p class="descricao-secao">Preencha os campos abaixo para simular o cadastro de uma nova raça na demonstração.</p>
+
+      <div id="mensagem-status" role="status" aria-live="polite" class="mensagem-status oculta"></div>
+
+      <form id="form-raca" novalidate>
+        <div class="grupo-campo">
+          <label for="nome">Nome da Raça <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="nome" name="nome" required placeholder="Ex.: Golden Retriever" autocomplete="off">
+        </div>
+
+        <div class="linha-dupla">
+          <div class="grupo-campo">
+            <label for="grupo">Grupo a que pertence <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="grupo" name="grupo" required placeholder="Ex.: Esportivo, Pastoreio" autocomplete="off">
+          </div>
+
+          <div class="grupo-campo">
+            <label for="porte">Porte <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <select id="porte" name="porte" required>
+              <option value="" disabled selected>Selecione o porte</option>
+              <option value="Pequeno">Pequeno</option>
+              <option value="Médio">Médio</option>
+              <option value="Grande">Grande</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grupo-campo">
+          <label for="temperamento">Temperamento <span class="obrigatorio" aria-hidden="true">*</span></label>
+          <input type="text" id="temperamento" name="temperamento" required placeholder="Ex.: Amigável, inteligente, leal" autocomplete="off">
+        </div>
+
+        <div class="linha-dupla">
+          <div class="grupo-campo">
+            <label for="paisOrigem">País de Origem <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="text" id="paisOrigem" name="paisOrigem" required placeholder="Ex.: Escócia" autocomplete="off">
+          </div>
+
+          <div class="grupo-campo">
+            <label for="expectativaVidaAnos">Expectativa de Vida (anos) <span class="obrigatorio" aria-hidden="true">*</span></label>
+            <input type="number" id="expectativaVidaAnos" name="expectativaVidaAnos" required min="1" max="30" placeholder="Ex.: 12">
+          </div>
+        </div>
+
+        <div class="acoes-formulario">
+          <button type="submit" id="btn-submit" class="btn btn-primario">
+            Cadastrar Raça (Local)
+          </button>
+          <button type="reset" id="btn-limpar" class="btn btn-secundario">
+            Limpar Campos
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- Lista de Raças (Demonstração) -->
+    <section class="painel-listagem" aria-labelledby="titulo-listagem">
+      <div class="cabecalho-listagem">
+        <div>
+          <h2 id="titulo-listagem" class="titulo-secao">Raças Cadastradas</h2>
+          <p class="descricao-secao">Registros simulados em memória local.</p>
+        </div>
+        <span id="contador-racas" class="contador-badge" aria-live="polite">0 raças listadas</span>
+      </div>
+
+      <div id="lista-racas" class="grade-racas" role="list">
+        <!-- Itens inseridos dinamicamente por app.js -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="rodape">
+    <div class="container rodape-conteudo">
+      <p>Interface de Demonstração - Arquitetura de Front-End Estático Puro (HTML5 / CSS3 / JavaScript).</p>
+      <p class="nota-backend"><strong>Nota:</strong> Esta interface não realiza requisições HTTP para a API e opera exclusivamente com estado em memória.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

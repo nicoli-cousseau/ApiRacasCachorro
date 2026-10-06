@@ -1,0 +1,401 @@
+/* ==========================================================================
+   CSS Puro para Demonstração de Raças de Cachorro (Sem dependências externas)
+   ========================================================================== */
+
+:root {
+  --cor-fundo: #f8fafc;
+  --cor-superficie: #ffffff;
+  --cor-texto-principal: #0f172a;
+  --cor-texto-secundario: #475569;
+  --cor-borda: #cbd5e1;
+  --cor-borda-foco: #2563eb;
+  --cor-primaria: #1d4ed8;
+  --cor-primaria-hover: #1e40af;
+  --cor-secundaria: #64748b;
+  --cor-secundaria-hover: #475569;
+  --cor-aviso-fundo: #fef3c7;
+  --cor-aviso-borda: #f59e0b;
+  --cor-aviso-texto: #92400e;
+  --cor-sucesso-fundo: #dcfce7;
+  --cor-sucesso-borda: #22c55e;
+  --cor-sucesso-texto: #166534;
+  --cor-erro-fundo: #fee2e2;
+  --cor-erro-borda: #ef4444;
+  --cor-erro-texto: #991b1b;
+  --cor-destaque-card: #eff6ff;
+  --sombra-card: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --raio-borda: 8px;
+}
+
+/* Reset básico */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background-color: var(--cor-fundo);
+  color: var(--cor-texto-principal);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Indicador de foco de teclado altamente visível */
+*:focus-visible {
+  outline: 3px solid var(--cor-borda-foco);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Cabeçalho */
+.cabecalho {
+  background-color: var(--cor-superficie);
+  border-bottom: 1px solid var(--cor-borda);
+  padding: 1.5rem 0;
+}
+
+.tag-demo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--cor-aviso-fundo);
+  border: 1px solid var(--cor-aviso-borda);
+  color: var(--cor-aviso-texto);
+  font-size: 0.875rem;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--raio-borda);
+  margin-bottom: 1rem;
+}
+
+.icone-alerta {
+  font-size: 1rem;
+}
+
+.titulo-principal {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+  margin-bottom: 0.25rem;
+}
+
+.subtitulo {
+  color: var(--cor-texto-secundario);
+  font-size: 1rem;
+}
+
+/* Layout Principal */
+.layout-principal {
+  flex: 1;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+}
+
+@media (min-width: 992px) {
+  .layout-principal {
+    grid-template-columns: 420px 1fr;
+    align-items: start;
+  }
+}
+
+/* Painéis */
+.painel-formulario,
+.painel-listagem {
+  background-color: var(--cor-superficie);
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 1.5rem;
+  box-shadow: var(--sombra-card);
+}
+
+.titulo-secao {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: var(--cor-texto-principal);
+}
+
+.descricao-secao {
+  font-size: 0.875rem;
+  color: var(--cor-texto-secundario);
+  margin-bottom: 1.25rem;
+}
+
+/* Mensagens de Feedback */
+.mensagem-status {
+  padding: 0.875rem 1rem;
+  border-radius: var(--raio-borda);
+  font-size: 0.9rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid transparent;
+  transition: opacity 0.2s ease;
+}
+
+.mensagem-status.oculta {
+  display: none;
+}
+
+.mensagem-status.sucesso {
+  background-color: var(--cor-sucesso-fundo);
+  border-color: var(--cor-sucesso-borda);
+  color: var(--cor-sucesso-texto);
+}
+
+.mensagem-status.erro {
+  background-color: var(--cor-erro-fundo);
+  border-color: var(--cor-erro-borda);
+  color: var(--cor-erro-texto);
+}
+
+/* Formulário */
+.grupo-campo {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+.linha-dupla {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 520px) {
+  .linha-dupla {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--cor-texto-principal);
+  margin-bottom: 0.35rem;
+}
+
+.obrigatorio {
+  color: var(--cor-erro-texto);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: 0.625rem 0.75rem;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  font-size: 0.95rem;
+  color: var(--cor-texto-principal);
+  background-color: #ffffff;
+  transition: border-color 0.15s ease;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--cor-borda-foco);
+}
+
+/* Botões */
+.acoes-formulario {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.65rem 1.25rem;
+  min-height: 44px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: var(--raio-borda);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.05s ease;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn-primario {
+  background-color: var(--cor-primaria);
+  color: #ffffff;
+  flex: 1 1 auto;
+}
+
+.btn-primario:hover {
+  background-color: var(--cor-primaria-hover);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  border-color: var(--cor-borda);
+  color: var(--cor-texto-secundario);
+}
+
+.btn-secundario:hover {
+  background-color: #f1f5f9;
+  color: var(--cor-texto-principal);
+}
+
+/* Cabeçalho da Listagem */
+.cabecalho-listagem {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--cor-borda);
+}
+
+.contador-badge {
+  background-color: #e2e8f0;
+  color: var(--cor-texto-principal);
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  align-self: center;
+}
+
+/* Grade de Raças */
+.grade-racas {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+@media (min-width: 680px) {
+  .grade-racas {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+/* Cartão de Raça */
+.card-raca {
+  background-color: #ffffff;
+  border: 1px solid var(--cor-borda);
+  border-radius: var(--raio-borda);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.card-raca:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.card-nome {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--cor-texto-principal);
+}
+
+.badge-porte {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 4px;
+  background-color: var(--cor-destaque-card);
+  color: var(--cor-primaria);
+  white-space: nowrap;
+}
+
+.card-dados {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-size: 0.875rem;
+}
+
+.card-dados li {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-rotulo {
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.card-valor {
+  color: var(--cor-texto-principal);
+}
+
+.card-rodape {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--cor-borda);
+  font-size: 0.75rem;
+  color: var(--cor-texto-secundario);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tag-ficticio {
+  background-color: #f1f5f9;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+.estado-vazio {
+  text-align: center;
+  padding: 2.5rem 1rem;
+  color: var(--cor-texto-secundario);
+  background-color: #f8fafc;
+  border-radius: var(--raio-borda);
+  border: 1px dashed var(--cor-borda);
+}
+
+/* Rodapé */
+.rodape {
+  background-color: var(--cor-superficie);
+  border-top: 1px solid var(--cor-borda);
+  padding: 1.5rem 0;
+  font-size: 0.85rem;
+  color: var(--cor-texto-secundario);
+  text-align: center;
+  margin-top: auto;
+}
+
+.nota-backend {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--cor-aviso-texto);
+}
