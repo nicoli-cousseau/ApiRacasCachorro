@@ -17,18 +17,6 @@ integrada).
 5. Crie o banco a partir das migrations: `dotnet ef database update`
 6. Rode a API: `dotnet run --urls http://localhost:5050`
 
-## Exemplo de JSON (POST/PUT)
-```json
-{
-  "nome": "Dálmata",
-  "grupo": "Não Esportivo",
-  "porte": "Médio",
-  "temperamento": "Ativo, alerta, brincalhão",
-  "paisOrigem": "Croácia",
-  "expectativaVidaAnos": 13
-}
-```
-
 ## Como abrir a interface
 Com a API rodando, abra no navegador: http://localhost:5050/index.html
 A interface (pasta `wwwroot/`) é servida pela própria API, na mesma origem, por isso não usa CORS.
@@ -47,6 +35,7 @@ http://localhost:5050
 | DELETE | /api/racas/{id} | Remove uma raça |
 
 ## Exemplo de JSON (POST/PUT)
+```json
 {
   "nome": "Dálmata",
   "grupo": "Não Esportivo",
@@ -55,6 +44,7 @@ http://localhost:5050
   "paisOrigem": "Croácia",
   "expectativaVidaAnos": 13
 }
+```
 
 ## Aviso
 Os dados são persistidos em um banco SQLite local (`ApiRacasCachorro.db`),
