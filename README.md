@@ -12,9 +12,22 @@ integrada).
 ## Como executar
 1. Instale o SDK do .NET 10
 2. Clone este repositório
-3. Instale a ferramenta do EF Core (só uma vez): `dotnet tool install --global dotnet-ef`
-4. Crie o banco a partir das migrations: `dotnet ef database update`
-5. Rode a API: `dotnet run --urls http://localhost:5050`
+3. Restaure os pacotes: `dotnet restore`
+4. Instale a ferramenta do EF Core (só uma vez): `dotnet tool install --global dotnet-ef`
+5. Crie o banco a partir das migrations: `dotnet ef database update`
+6. Rode a API: `dotnet run --urls http://localhost:5050`
+
+## Exemplo de JSON (POST/PUT)
+```json
+{
+  "nome": "Dálmata",
+  "grupo": "Não Esportivo",
+  "porte": "Médio",
+  "temperamento": "Ativo, alerta, brincalhão",
+  "paisOrigem": "Croácia",
+  "expectativaVidaAnos": 13
+}
+```
 
 ## Como abrir a interface
 Com a API rodando, abra no navegador: http://localhost:5050/index.html
