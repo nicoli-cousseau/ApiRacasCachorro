@@ -1,5 +1,6 @@
 /* ==========================================================================
-   CSS Puro para Demonstração de Raças de Cachorro (Sem dependências externas)
+   CSS Catálogo de Raças de Cachorro (Integrado com a API)
+   Sem dependências externas, bibliotecas ou CDNs.
    ========================================================================== */
 
 :root {
@@ -13,9 +14,8 @@
   --cor-primaria-hover: #1e40af;
   --cor-secundaria: #64748b;
   --cor-secundaria-hover: #475569;
-  --cor-aviso-fundo: #fef3c7;
-  --cor-aviso-borda: #f59e0b;
-  --cor-aviso-texto: #92400e;
+  --cor-perigo: #dc2626;
+  --cor-perigo-hover: #b91c1c;
   --cor-sucesso-fundo: #dcfce7;
   --cor-sucesso-borda: #22c55e;
   --cor-sucesso-texto: #166534;
@@ -23,6 +23,7 @@
   --cor-erro-borda: #ef4444;
   --cor-erro-texto: #991b1b;
   --cor-destaque-card: #eff6ff;
+  --cor-edicao-borda: #3b82f6;
   --sombra-card: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
   --raio-borda: 8px;
 }
@@ -44,10 +45,14 @@ body {
   flex-direction: column;
 }
 
-/* Indicador de foco de teclado altamente visível */
+/* Indicador de foco de teclado acessível e visível */
 *:focus-visible {
   outline: 3px solid var(--cor-borda-foco);
   outline-offset: 3px;
+}
+
+.oculta {
+  display: none !important;
 }
 
 .container {
@@ -62,23 +67,6 @@ body {
   background-color: var(--cor-superficie);
   border-bottom: 1px solid var(--cor-borda);
   padding: 1.5rem 0;
-}
-
-.tag-demo {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background-color: var(--cor-aviso-fundo);
-  border: 1px solid var(--cor-aviso-borda);
-  color: var(--cor-aviso-texto);
-  font-size: 0.875rem;
-  padding: 0.5rem 0.875rem;
-  border-radius: var(--raio-borda);
-  margin-bottom: 1rem;
-}
-
-.icone-alerta {
-  font-size: 1rem;
 }
 
 .titulo-principal {
@@ -118,6 +106,12 @@ body {
   border-radius: var(--raio-borda);
   padding: 1.5rem;
   box-shadow: var(--sombra-card);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.painel-formulario.modo-edicao {
+  border-color: var(--cor-edicao-borda);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2), var(--sombra-card);
 }
 
 .titulo-secao {
@@ -140,11 +134,7 @@ body {
   font-size: 0.9rem;
   margin-bottom: 1.25rem;
   border: 1px solid transparent;
-  transition: opacity 0.2s ease;
-}
-
-.mensagem-status.oculta {
-  display: none;
+  word-break: break-word;
 }
 
 .mensagem-status.sucesso {
@@ -255,6 +245,21 @@ select:focus {
   color: var(--cor-texto-principal);
 }
 
+.btn-pequeno {
+  padding: 0.35rem 0.75rem;
+  min-height: 34px;
+  font-size: 0.85rem;
+  background-color: #ffffff;
+  border: 1px solid var(--cor-borda);
+  color: var(--cor-texto-principal);
+  border-radius: var(--raio-borda);
+}
+
+.btn-pequeno:hover {
+  background-color: #f8fafc;
+  border-color: var(--cor-borda-foco);
+}
+
 /* Cabeçalho da Listagem */
 .cabecalho-listagem {
   display: flex;
@@ -267,6 +272,12 @@ select:focus {
   border-bottom: 1px solid var(--cor-borda);
 }
 
+.controles-listagem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
 .contador-badge {
   background-color: #e2e8f0;
   color: var(--cor-texto-principal);
@@ -274,7 +285,37 @@ select:focus {
   font-weight: 600;
   padding: 0.35rem 0.75rem;
   border-radius: 9999px;
-  align-self: center;
+}
+
+/* Indicador de Carregamento */
+.indicador-carregamento {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 2.5rem 1rem;
+  color: var(--cor-primaria);
+  font-weight: 600;
+  font-size: 1rem;
+  background-color: #eff6ff;
+  border: 1px dashed var(--cor-borda-foco);
+  border-radius: var(--raio-borda);
+  margin-bottom: 1.25rem;
+}
+
+.spinner {
+  width: 22px;
+  height: 22px;
+  border: 3px solid rgba(37, 99, 235, 0.2);
+  border-top-color: var(--cor-primaria);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+
+@keyframes girar {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Grade de Raças */
@@ -318,6 +359,7 @@ select:focus {
   font-size: 1.15rem;
   font-weight: 700;
   color: var(--cor-texto-principal);
+  word-break: break-word;
 }
 
 .badge-porte {
@@ -353,27 +395,66 @@ select:focus {
 
 .card-valor {
   color: var(--cor-texto-principal);
+  word-break: break-word;
 }
 
 .card-rodape {
   margin-top: auto;
-  padding-top: 0.5rem;
+  padding-top: 0.75rem;
   border-top: 1px dashed var(--cor-borda);
   font-size: 0.75rem;
   color: var(--cor-texto-secundario);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
-.tag-ficticio {
-  background-color: #f1f5f9;
-  padding: 0.15rem 0.45rem;
+.card-id {
+  font-weight: 600;
+  color: var(--cor-texto-secundario);
+}
+
+.card-acoes {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.btn-acao {
+  padding: 0.3rem 0.65rem;
+  min-height: 32px;
+  font-size: 0.8rem;
+  font-weight: 600;
   border-radius: 4px;
-  font-size: 0.7rem;
-  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: background-color 0.15s ease;
 }
 
+.btn-editar {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: var(--cor-primaria);
+}
+
+.btn-editar:hover {
+  background-color: #dbeafe;
+}
+
+.btn-excluir {
+  background-color: #fef2f2;
+  border-color: #fecaca;
+  color: var(--cor-perigo);
+}
+
+.btn-excluir:hover {
+  background-color: #fee2e2;
+  color: var(--cor-perigo-hover);
+}
+
+/* Estado Vazio */
 .estado-vazio {
   text-align: center;
   padding: 2.5rem 1rem;
@@ -381,6 +462,12 @@ select:focus {
   background-color: #f8fafc;
   border-radius: var(--raio-borda);
   border: 1px dashed var(--cor-borda);
+}
+
+.dica-vazio {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--cor-secundaria);
 }
 
 /* Rodapé */
@@ -392,10 +479,4 @@ select:focus {
   color: var(--cor-texto-secundario);
   text-align: center;
   margin-top: auto;
-}
-
-.nota-backend {
-  margin-top: 0.35rem;
-  font-size: 0.8rem;
-  color: var(--cor-aviso-texto);
 }
