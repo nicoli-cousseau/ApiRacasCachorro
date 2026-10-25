@@ -7,20 +7,7 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 
 var app = builder.Build();
 
-// "Banco de dados" em memória: uma lista de raças, com 10 registros iniciais
-var racas = new List<Raca>
-{
-    new Raca(1, "Labrador Retriever", "Esportivo", "Grande", "Amigável, ativo, gosta de água", "Canadá", 12),
-    new Raca(2, "Pug", "Companhia", "Pequeno", "Afetuoso, brincalhão, teimoso", "China", 14),
-    new Raca(3, "Border Collie", "Pastoreio", "Médio", "Inteligente, energético, obediente", "Reino Unido", 13),
-    new Raca(4, "Bulldog Francês", "Companhia", "Pequeno", "Calmo, sociável, adaptável", "França", 11),
-    new Raca(5, "Golden Retriever", "Esportivo", "Grande", "Amigável, paciente, confiável", "Escócia", 12),
-    new Raca(6, "Poodle", "Não Esportivo", "Médio", "Inteligente, ativo, elegante", "Alemanha/França", 14),
-    new Raca(7, "Beagle", "Faro", "Pequeno", "Curioso, alegre, teimoso", "Reino Unido", 13),
-    new Raca(8, "Chihuahua", "Companhia", "Pequeno", "Alerta, ágil, corajoso", "México", 16),
-    new Raca(9, "Rottweiler", "Trabalho", "Grande", "Leal, confiante, protetor", "Alemanha", 10),
-    new Raca(10, "Shih Tzu", "Companhia", "Pequeno", "Afetuoso, extrovertido, tranquilo", "China", 13)
-};
+app.UseStaticFiles();
 
 // Rota raiz - confirma que a API está no ar
 app.MapGet("/", () => "API de Raças de Cachorros está no ar! 🐶");
@@ -30,9 +17,9 @@ app.MapGet("/api/racas", async (ApiDbContext db) =>
     await db.Racas.ToListAsync());
 
 // GET - busca uma raça pelo id
-app.MapGet("/api/racas/{id}", (int id) =>
+app.MapGet("/api/racas/{id}", async(int id, ApiDbContext db) =>
 {
-    var raca = racas.FirstOrDefault(r => r.Id == id);
+    var raca = await db.Racas.FindAsync(id);
     return raca is not null ? Results.Ok(raca) : Results.NotFound();
 });
 
@@ -45,41 +32,34 @@ app.MapPost("/api/racas", async (RacaEntity raca, ApiDbContext db) =>
 });
 
 // PUT - atualiza uma raça existente
-app.MapPut("/api/racas/{id}", (int id, RacaDto racaAtualizada) =>
+app.MapPut("/api/racas/{id}", async(int id, RacaEntity racaAtualizada, ApiDbContext db) =>
 {
-    var index = racas.FindIndex(r => r.Id == id);
-    if (index == -1) return Results.NotFound();
+   var raca = await db.Racas.FindAsync(id);
+    if (raca is null)return  Results.NotFound(); 
+    raca.Nome = racaAtualizada.Nome;
+    raca.Grupo = racaAtualizada.Grupo;
+    raca.Porte = racaAtualizada.Porte;
+    raca.Temperamento = racaAtualizada.Temperamento;
+    raca.PaisOrigem = racaAtualizada.PaisOrigem;
+    raca.ExpectativaVidaAnos = racaAtualizada.ExpectativaVidaAnos;
 
-    racas[index] = new Raca(
-        id,
-        racaAtualizada.Nome,
-        racaAtualizada.Grupo,
-        racaAtualizada.Porte,
-        racaAtualizada.Temperamento,
-        racaAtualizada.PaisOrigem,
-        racaAtualizada.ExpectativaVidaAnos
-    );
+    await db.SaveChangesAsync();
+    return Results.Ok(raca);
 
-    return Results.Ok(racas[index]);
 });
 
 // DELETE - remove uma raça
-app.MapDelete("/api/racas/{id}", (int id) =>
+app.MapDelete("/api/racas/{id}", async(int id, ApiDbContext db) =>
 {
-    var raca = racas.FirstOrDefault(r => r.Id == id);
-    if (raca is null) return Results.NotFound();
+   var raca = await db.Racas.FindAsync(id);
+    if (raca is null)return  Results.NotFound(); 
 
-    racas.Remove(raca);
+    db.Racas.Remove(raca);
+    await db.SaveChangesAsync();
     return Results.NoContent();
 });
 
 app.Run();
-
-// Modelo principal: uma raça já cadastrada (tem Id)
-record Raca(int Id, string Nome, string Grupo, string Porte, string Temperamento, string PaisOrigem, int ExpectativaVidaAnos);
-
-// DTO de entrada: o que o cliente envia (sem Id)
-record RacaDto(string Nome, string Grupo, string Porte, string Temperamento, string PaisOrigem, int ExpectativaVidaAnos);
 
 class RacaEntity
 {

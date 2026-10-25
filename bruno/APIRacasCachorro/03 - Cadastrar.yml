@@ -5,15 +5,15 @@ info:
 
 http:
   method: POST
-  url: http://localhost:5164/api/racas
+  url: http://localhost:5050/api/racas
   body:
     type: json
     data: |-
       {
         "nome": "Vira-lata Caramelo", 
         "grupo": "Companhia", 
-        "porte": "Médio", 
-        "temperamento": "Dócil, esperto, leal", 
+        "porte": "Grande", 
+        "temperamento": "Dócil, esperto, leal, brincalhão", 
         "paisOrigem": "Brasil", 
         "expectativaVidaAnos": 13
       }

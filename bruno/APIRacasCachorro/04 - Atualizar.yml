@@ -1,18 +1,18 @@
 info:
-  name: "04 - Atualizar "
+  name: "04 - Atualizar"
   type: http
   seq: 5
 
 http:
   method: PUT
-  url: "{{baseUrl}}/api/racas/11"
+  url: http://localhost:5050/api/racas/5
   body:
     type: json
     data: |-
       {
         "nome": "Dálmata",
         "grupo": "Não Esportivo",
-        "porte": "Médio",
+        "porte": "Grande",
         "temperamento": "Ativo, leal, muito enérgico",
         "paisOrigem": "Croácia",
         "expectativaVidaAnos": 14

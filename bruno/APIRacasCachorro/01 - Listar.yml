@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:5164/api/racas
+  url: http://localhost:5050/api/racas
   auth: inherit
 
 settings:
