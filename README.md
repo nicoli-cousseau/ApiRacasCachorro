@@ -60,7 +60,7 @@ versionadas na pasta `Migrations/`. O arquivo do banco não é versionado no Git
 https://drive.google.com/file/d/1kbbmN3k0HlMMSFe6tnRm3SoajwzRd8km/view?usp=sharing 
 
 ## Vídeo de demonstração — AP2
-COLE_AQUI_O_LINK_PUBLICO_DO_NOVO_VIDEO
+https://drive.google.com/file/d/1Mc9IcwZOsyxUonLZmpO_iMiSdkwK1bPw/view?usp=sharing 
 
 ## Interface web (Aulas 11 e 12)
 A interface em `wwwroot/` foi criada com o Google Antigravity (Aula 11, dados
