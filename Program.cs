@@ -1,3 +1,5 @@
+using ApiRacasCachorro.Data;
+using ApiRacasCachorro.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -74,23 +76,3 @@ app.MapDelete("/api/racas/{id}", async(int id, ApiDbContext db) =>
 });
 
 app.Run();
-
-class RacaEntity
-{
-    public int Id { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public string Grupo { get; set; } = string.Empty;
-    public string Porte { get; set; } = string.Empty;
-    public string Temperamento { get; set; } = string.Empty;
-    public string PaisOrigem { get; set; } = string.Empty;
-    public int ExpectativaVidaAnos { get; set; }
-}
-
-class ApiDbContext : DbContext
-{
-    public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
-    {
-    }
-
-    public DbSet<RacaEntity> Racas => Set<RacaEntity>();
-}

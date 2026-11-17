@@ -46,6 +46,26 @@ http://localhost:5050
 }
 ```
 
+## Organização do código
+```
+ApiRacasCachorro/
+├── Program.cs
+├── ApiRacasCachorro.csproj
+├── Models/
+│   └── RacaEntity.cs
+├── Data/
+│   └── ApiDbContext.cs
+├── Migrations/
+├── wwwroot/
+└── bruno/
+```
+- `Program.cs`: inicialização da aplicação, registro do contexto, middleware de exceções e rotas.
+- `Models/RacaEntity.cs`: entidade que descreve a raça e é gravada no banco.
+- `Data/ApiDbContext.cs`: contexto que liga a aplicação ao banco SQLite pelo Entity Framework Core.
+- `Migrations/`: histórico de criação do banco.
+- `wwwroot/`: interface web, servida pela própria API.
+- `bruno/`: Collection de testes das rotas.
+
 ## Aviso
 Os dados são persistidos em um banco SQLite local (`ApiRacasCachorro.db`),
 criado pelo comando `dotnet ef database update` a partir das migrations
