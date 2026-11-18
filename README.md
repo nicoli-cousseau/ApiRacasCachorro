@@ -4,7 +4,7 @@ API REST desenvolvida em ASP.NET Core / .NET 10 (Minimal API), com CRUD
 completo persistido em banco SQLite via Entity Framework Core. Começou como
 a Avaliação Parcial 1 (AP1) da disciplina de Desenvolvimento Back-End e foi
 evoluída nos encontros seguintes (persistência com EF Core, interface web
-integrada).
+integrada, organização do código em pastas).
 
 ## Requisito
 .NET 10
@@ -16,6 +16,8 @@ integrada).
 4. Instale a ferramenta do EF Core (só uma vez): `dotnet tool install --global dotnet-ef`
 5. Crie o banco a partir das migrations: `dotnet ef database update`
 6. Rode a API: `dotnet run --urls http://localhost:5050`
+
+**Este projeto usa migrations** (não cria o banco automaticamente ao iniciar): é preciso rodar `dotnet ef database update` antes da primeira execução para criar o arquivo `ApiRacasCachorro.db`.
 
 ## Como abrir a interface
 Com a API rodando, abra no navegador: http://localhost:5050/index.html
@@ -53,6 +55,8 @@ ApiRacasCachorro/
 ├── ApiRacasCachorro.csproj
 ├── Models/
 │   └── RacaEntity.cs
+├── Dtos/
+│   └── RacaEntrada.cs
 ├── Data/
 │   └── ApiDbContext.cs
 ├── Migrations/
@@ -61,6 +65,7 @@ ApiRacasCachorro/
 ```
 - `Program.cs`: inicialização da aplicação, registro do contexto, middleware de exceções e rotas.
 - `Models/RacaEntity.cs`: entidade que descreve a raça e é gravada no banco.
+- `Dtos/RacaEntrada.cs`: tipo de entrada (record) com os dados que o cliente envia no POST e no PUT; não tem `Id`, que é gerado pelo banco.
 - `Data/ApiDbContext.cs`: contexto que liga a aplicação ao banco SQLite pelo Entity Framework Core.
 - `Migrations/`: histórico de criação do banco.
 - `wwwroot/`: interface web, servida pela própria API.
@@ -81,6 +86,9 @@ https://drive.google.com/file/d/1kbbmN3k0HlMMSFe6tnRm3SoajwzRd8km/view?usp=shari
 
 ## Vídeo de demonstração — AP2
 https://drive.google.com/file/d/1Mc9IcwZOsyxUonLZmpO_iMiSdkwK1bPw/view?usp=sharing 
+
+## Vídeo de demonstração — AS
+Link: (será preenchido após a gravação)
 
 ## Interface web (Aulas 11 e 12)
 A interface em `wwwroot/` foi criada com o Google Antigravity (Aula 11, dados

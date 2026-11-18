@@ -1,4 +1,5 @@
 using ApiRacasCachorro.Data;
+using ApiRacasCachorro.Dtos;
 using ApiRacasCachorro.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,28 +41,38 @@ app.MapGet("/api/racas/{id}", async(int id, ApiDbContext db) =>
 });
 
 // POST - cadastra uma nova raça direto no banco
-app.MapPost("/api/racas", async (RacaEntity raca, ApiDbContext db) =>
+app.MapPost("/api/racas", async (RacaEntrada entrada, ApiDbContext db) =>
 {
+    var raca = new RacaEntity
+    {
+        Nome = entrada.Nome,
+        Grupo = entrada.Grupo,
+        Porte = entrada.Porte,
+        Temperamento = entrada.Temperamento,
+        PaisOrigem = entrada.PaisOrigem,
+        ExpectativaVidaAnos = entrada.ExpectativaVidaAnos
+    };
+
     db.Racas.Add(raca);
     await db.SaveChangesAsync();
     return Results.Created($"/api/racas/{raca.Id}", raca);
 });
 
 // PUT - atualiza uma raça existente
-app.MapPut("/api/racas/{id}", async(int id, RacaEntity racaAtualizada, ApiDbContext db) =>
+app.MapPut("/api/racas/{id}", async (int id, RacaEntrada entrada, ApiDbContext db) =>
 {
-   var raca = await db.Racas.FindAsync(id);
-    if (raca is null)return  Results.NotFound(); 
-    raca.Nome = racaAtualizada.Nome;
-    raca.Grupo = racaAtualizada.Grupo;
-    raca.Porte = racaAtualizada.Porte;
-    raca.Temperamento = racaAtualizada.Temperamento;
-    raca.PaisOrigem = racaAtualizada.PaisOrigem;
-    raca.ExpectativaVidaAnos = racaAtualizada.ExpectativaVidaAnos;
+    var raca = await db.Racas.FindAsync(id);
+    if (raca is null) return Results.NotFound();
+
+    raca.Nome = entrada.Nome;
+    raca.Grupo = entrada.Grupo;
+    raca.Porte = entrada.Porte;
+    raca.Temperamento = entrada.Temperamento;
+    raca.PaisOrigem = entrada.PaisOrigem;
+    raca.ExpectativaVidaAnos = entrada.ExpectativaVidaAnos;
 
     await db.SaveChangesAsync();
     return Results.Ok(raca);
-
 });
 
 // DELETE - remove uma raça
