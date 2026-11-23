@@ -88,7 +88,7 @@ https://drive.google.com/file/d/1kbbmN3k0HlMMSFe6tnRm3SoajwzRd8km/view?usp=shari
 https://drive.google.com/file/d/1Mc9IcwZOsyxUonLZmpO_iMiSdkwK1bPw/view?usp=sharing 
 
 ## Vídeo de demonstração — AS
-Link: (será preenchido após a gravação)
+https://drive.google.com/file/d/1HWWH6g1rLtxBW7Or0nuu_VY6mHf5WIqg/view?usp=sharing 
 
 ## Interface web (Aulas 11 e 12)
 A interface em `wwwroot/` foi criada com o Google Antigravity (Aula 11, dados
