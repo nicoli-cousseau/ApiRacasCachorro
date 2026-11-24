@@ -10,6 +10,9 @@ integrada, organização do código em pastas).
 .NET 10
 
 ## Como executar
+
+Execute os comandos com o terminal aberto na pasta do projeto, a que contém o arquivo `ApiRacasCachorro.csproj`.
+
 1. Instale o SDK do .NET 10
 2. Clone este repositório
 3. Restaure os pacotes: `dotnet restore`
@@ -78,8 +81,13 @@ versionadas na pasta `Migrations/`. O arquivo do banco não é versionado no Git
 (está no `.gitignore`).
 
 ## Collection de testes
-> A Collection do Bruno está na pasta /bruno deste repositório.
-> Rode primeiro `03 - Cadastrar` e use o id retornado nas requisições 02, 04, 05 e 06.
+A Collection do Bruno está na pasta `bruno/APIRacasCachorro` deste repositório.
+
+1. Rode a API com `dotnet run --urls http://localhost:5050`.
+2. No Bruno, clique em **Open Collection** e escolha a pasta `bruno/APIRacasCachorro`.
+3. No canto superior direito, selecione o ambiente **Local** (variável `baseUrl` = `http://localhost:5050`). As requisições chamam esse endereço; se a API rodar em outra porta, ajuste a URL.
+4. Execute nesta ordem: `01 - Listar` → `03 - Cadastrar` (anote o id) → `02 - Buscar por ID` → `04 - Atualizar` → `02 - Buscar por ID` (confirma a mudança) → `05 - Remover` → `06 - Confirmar Remoção` (404). Em 02, 04, 05 e 06, troque o id da URL pelo id devolvido pelo POST.
+5. Persistência: cadastre outro registro com `03 - Cadastrar`, anote o id, pare a API (Ctrl + C), inicie de novo e consulte o mesmo id com `07 - Consultar registro preservado` (200).
 
 ## Vídeo de demonstração — AP1
 https://drive.google.com/file/d/1kbbmN3k0HlMMSFe6tnRm3SoajwzRd8km/view?usp=sharing 
